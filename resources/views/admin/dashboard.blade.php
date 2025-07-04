@@ -1,0 +1,1 @@
+<h1> DashBoard {{ auth()->user()->name }}</h1>
