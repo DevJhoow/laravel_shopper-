@@ -70,7 +70,7 @@
                     <li>
                         <a class="dropdown-trigger" href="#!" data-target="userDropdown">
                             <i class="material-icons left">person</i>
-                            Olá {{ Auth::user()->name }}
+                            Olá {{ Str::ucfirst(Str::lower(Auth::user()->name)) }}
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>
@@ -123,25 +123,31 @@
     <!-- JS do Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const elems = document.querySelectorAll('.dropdown-trigger');
-            const instances = M.Dropdown.init(elems, {
-                constrainWidth: false,
-                coverTrigger: false,
-                closeOnClick: true,
-                hover: false,
-                alignment: 'left'
-            });
+       document.addEventListener('DOMContentLoaded', function () {
+        const elems = document.querySelectorAll('.dropdown-trigger');
+        const instances = M.Dropdown.init(elems, {
+            constrainWidth: false,
+            coverTrigger: false,
+            closeOnClick: true,
+            hover: false,
+            alignment: 'left'
+        });
 
-            // Fecha o dropdown ao clicar fora
-            document.addEventListener('click', function (event) {
-                instances.forEach(instance => {
-                    if (!event.target.closest('.dropdown-trigger') && !event.target.closest('.dropdown-content')) {
-                        instance.close();
-                    }
-                });
+        // Ativa os modais
+        const modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+
+        // Fecha dropdown ao clicar fora
+        document.addEventListener('click', function (event) {
+            instances.forEach(instance => {
+                if (!event.target.closest('.dropdown-trigger') && !event.target.closest('.dropdown-content')) {
+                    instance.close();
+                }
             });
         });
+    });
+
     </script>
+
 </body>
 </html>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Compra;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CarrinhoController extends Controller
 {
@@ -52,4 +54,31 @@ class CarrinhoController extends Controller
         return redirect()->route('site.carrinho')->with('aviso', 'Seu carrinho esta vazio');
 
     }
+
+    public function finalizarPedido()
+    {
+        $itens = Cart::getContent();
+
+        foreach ($itens as $item) {
+            Compra::create([
+                'user_id' => Auth::id(),
+                'produto_id' => $item->id,
+                'quantidade' => $item->quantity,
+                'preco_unitario' => $item->price,
+            ]);
+        }
+
+        Cart::clear();
+
+        return redirect()->route('usuario.compras')->with('sucesso', 'Pedido finalizado com sucesso!');
+    }
+
+    //Compras 
+    public function minhasCompras()
+    {
+        $compras = Compra::where('user_id', Auth::id())->with('produto')->latest()->get();
+
+        return view('admin.compras', compact('compras'));
+    }
+
 }

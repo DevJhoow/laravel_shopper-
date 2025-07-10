@@ -17,19 +17,6 @@
                 </div>
             @endif
 
-            {{-- @if ($mensagem = Session::get('aviso'))
-                <div class="row" style="margin-top: 10px;">
-                    <div class="col s12 m6 offset-m3">
-                        <div class="card-panel green lighten-1 z-depth-2 white-text" style="padding: 10px;">
-                            <div class="valign-wrapper">
-                                <i class="material-icons left" style="margin-right: 10px;">check_circle</i>
-                                <span style="font-size: 16px;">{{ $mensagem }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif --}}
-
             @if ($itens->count() == 0) 
 
                   <div class="row">
@@ -122,9 +109,12 @@
                     <i class="material-icons left">clear</i> Limpar carrinho
                 </a>
 
-                <a href="" class="btn-large green darken-2 waves-effect waves-light" style="margin-left: 10px;">
-                    <i class="material-icons left">check</i> Finalizar pedido
-                </a>
+                <form action="{{ route('site.finalizarPedido') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn-large green darken-2 waves-effect waves-light" style="margin-left: 10px;">
+                        <i class="material-icons left">check</i> Finalizar pedido
+                    </button>
+                </form>
             </div>
         </div>
     </div>

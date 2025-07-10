@@ -60,8 +60,23 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $user = User::findOrFail($id);
+        
+        // Garante que o usuário só atualize seu próprio perfil
+        if (Auth::id() !== $user->id) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $user->name = $request->name;
+        $user->save();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Nome atualizado com sucesso!');
     }
+
 
     /**
      * Remove the specified resource from storage.
