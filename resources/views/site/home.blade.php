@@ -9,9 +9,13 @@
                         <div class="card-image">
                             <img src="{{ $produto->imagem ?? 'https://via.placeholder.com/400x300' }}">
                             <span class="card-title">{{ $produto->nome }}</span>
-                            <a href="{{ route('site.details', $produto->id) }}" class="btn-floating halfway-fab waves-effect waves-light red">
-                                <i class="material-icons">add</i>
-                            </a>
+                            {{--só ira aparecer o icon de detalhes para quem estiver logado--}}
+                            @auth
+                                <a href="{{ route('site.details', $produto->id) }}" class="btn-floating halfway-fab waves-effect waves-light red">
+                                    <i class="material-icons">add</i>
+                                </a>
+                            @endauth
+
                         </div>
                         <div class="card-content">
                             <p>{{ $produto->descricao }}</p>

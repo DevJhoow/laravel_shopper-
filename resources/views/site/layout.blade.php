@@ -77,7 +77,7 @@
                 </ul>
             @else
                 {{-- deslogado --}}
-                <ul class="right hide-on-med-and-down">
+                <ul class="right">
                     <li>
                         <a href="{{ route('login.form') }}">
                             <i class="material-icons left">person</i>
@@ -85,7 +85,13 @@
                             <i class="material-icons right">lock</i>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('login.create') }}">
+                            Cadastre-se
+                        </a>
+                    </li>
                 </ul>
+
             @endauth
 
             {{-- Menus principais à direita da tela --}}

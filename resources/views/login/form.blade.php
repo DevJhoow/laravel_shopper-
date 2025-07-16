@@ -89,6 +89,12 @@
                     <i class="material-icons left">login</i> Entrar
                 </button>
             </div>
+            <div class="center-align" style="margin-top: 15px;">
+                <a href="{{ route('site.index') }}" class="btn-flat grey-text text-darken-2">
+                    <i class="material-icons left">arrow_back</i>
+                    Cancelar
+                </a>
+            </div>
         </form>
     </div>
 
